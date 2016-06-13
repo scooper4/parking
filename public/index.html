@@ -81,7 +81,7 @@
        
           
             <label ng-hide ="editing" ng-click="editing = !editing">{{vehicle.type}}</label>
-             <md-select ng-show ="editing" ng-blur ="editing = false; editVehicle(vehicle)"  ng-model="vehicle.type" md-selected-text="getSelectedText()">
+             <md-select ng-show ="editing" ng-blur ="editing = false" ng-change="editVehicle(vehicle)"  ng-model="vehicle.type" md-selected-text="getSelectedText()">
                 <md-optgroup label="items">
                   <md-option ng-value="item" ng-repeat="item in items">{{item}}</md-option>
                 </md-optgroup>
