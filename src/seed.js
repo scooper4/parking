@@ -1,7 +1,7 @@
 'use strict';
 var Todo = require('./models/todo.js');
 var Vehicle = require('./models/vehicle.js');
-Vehicle.create({});
+
 
 //array of seed data 
 var todos = [

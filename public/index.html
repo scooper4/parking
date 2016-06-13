@@ -11,6 +11,8 @@
 
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <!-- Angular chart -->
+      <link rel="stylesheet" href="/bower_components/angular-chart.js/dist/angular-chart.css">
     
 </head>
 <body ng-app="todoListApp" ng-controller="mainCtrl">
@@ -20,48 +22,59 @@
   <h1>Lot Status</h1>
 
   <div class ="container">
-  <!--   Title Parked Vehicles -->
+  <!-- Entire Table Data -->
     <div class ="row">
-      <div class ="col s12 md12">
-        Parked Vehicles
+    <!-- Graph Data -->
+      <div ng-controller="PieCtrl" class= "col s12 md3 ">
+        <canvas id="pie" class="chart chart-pie"
+          chart-data="[vehicles.length,200-vehicles.length]" chart-labels="['parked','free']">
+        </canvas> 
+      </div>
+      <div class= "col s12 md9">  
+      <!--   Title Parked Vehicles -->
+        <div class ="row">
+          <div class ="col s12 md12">
+            Parked Vehicles : {{vehicles.length}}
+          </div>  
+        </div>  
+      <!-- Column Titles  --> 
+        <div class ="row">
+          <div class ="col s2 md2">
+            State
+          </div> 
+          <div class ="col s2 md3">
+            Plate
+          </div>  
+          <div class ="col s4 md4">
+            Time
+          </div>  
+          <div class ="col s2 md2">
+            Type
+          </div>  
+          <div class ="col s2 md2">
+            Remove
+          </div>   
+        </div> 
+      <!-- Vehicle Data  --> 
+        <div ng-repeat ="vehicle in vehicles"class ="row">
+          <div class ="col s2 md2">
+            {{vehicle.state}}
+          </div> 
+          <div class ="col s2 md3">
+            {{vehicle.plate}}
+          </div>  
+          <div class ="col s4 md4">
+            {{vehicle.time}}
+          </div>  
+          <div class ="col s2 md2">
+            {{vehicle.type}}
+          </div>  
+          <div class ="col s2 md2">
+            Remove
+          </div>   
+        </div> 
       </div>  
-    </div>  
-  <!-- Column Titles  --> 
-    <div class ="row">
-      <div class ="col s2 md2">
-        State
-      </div> 
-      <div class ="col s2 md3">
-        Plate
-      </div>  
-      <div class ="col s4 md4">
-        Time
-      </div>  
-      <div class ="col s2 md2">
-        Type
-      </div>  
-      <div class ="col s2 md2">
-        Remove
-      </div>   
-    </div> 
-  <!-- Vehicle Data  --> 
-    <div ng-repeat ="vehicle in vehicles"class ="row">
-      <div class ="col s2 md2">
-        {{vehicle.state}}
-      </div> 
-      <div class ="col s2 md3">
-        {{vehicle.plate}}
-      </div>  
-      <div class ="col s4 md4">
-        {{vehicle.time}}
-      </div>  
-      <div class ="col s2 md2">
-        {{vehicle.type}}
-      </div>  
-      <div class ="col s2 md2">
-        Remove
-      </div>   
-    </div>   
+    </div>    
 
 
   </div>  
@@ -76,13 +89,21 @@
     <todo></todo>
    </div>
  -->
+
   <!-- All of the 3rd party modules including angular -->
+
+    
   <script src="/scripts/vendor.bundle.js"></script>
+  <script src="bower_components/Chart.js/Chart.js"></script>
+<script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
 <!--   All of the apllications code -->
   <script src="/scripts/todo.bundle.js"></script>
+
  <!--  Materialize Javascript -->
    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="styles/js/materialize.min.js"></script>
+     
+    
     </body>
  
 </body>

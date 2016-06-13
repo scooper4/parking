@@ -7,7 +7,26 @@ webpackJsonp([0],[
 	//for webpack
 	var angular = __webpack_require__(1);
 
-	angular.module('todoListApp', []);
+	angular.module('todoListApp', ['chart.js'])
+	.controller("PieCtrl", function ($scope, dataService) {
+
+	  //call get vehicles data service to set scope vehicles variable
+	  
+	  // var longer = dataService.getVehicles(function(response){
+	  //    var vehicles = response.data.vehicles;
+	  //   $scope.vehicles = vehicles;
+	  //   console.log("vehicles are" + $scope.vehicles.length)
+	  //   return $scope.vehicles.length
+	    
+	  // }) 		
+	  console.log("please work poop " + $scope.vehicles)
+	  $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+	  $scope.data = [100, 500, 100];
+	  
+
+
+	});
+
 
 	__webpack_require__(3);
 	__webpack_require__(4);
@@ -36,6 +55,7 @@ webpackJsonp([0],[
 	  }
 
 	 	$interval($scope.counter, 1000, 10);
+	  
 	//call get vehicles data service to set scope vehicles variable
 	  dataService.getVehicles(function(response){
 	    var vehicles = response.data.vehicles;

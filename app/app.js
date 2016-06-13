@@ -3,7 +3,9 @@
 //for webpack
 var angular = require('angular');
 
-angular.module('todoListApp', []);
+angular.module('todoListApp', ['chart.js'])
+
+
 
 require('./scripts/controllers/main.js');
 require('./scripts/controllers/todo.js');

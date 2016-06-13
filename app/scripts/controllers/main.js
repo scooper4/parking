@@ -14,6 +14,7 @@ angular.module('todoListApp')
   }
 
  	$interval($scope.counter, 1000, 10);
+  
 //call get vehicles data service to set scope vehicles variable
   dataService.getVehicles(function(response){
     var vehicles = response.data.vehicles;
