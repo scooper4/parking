@@ -2,7 +2,7 @@
 //for webpack
 var angular = require('angular');
 
-angular.module('todoListApp')
+angular.module('parkApp')
 .controller('mainCtrl', function($scope, $interval, $log, dataService){
  
 

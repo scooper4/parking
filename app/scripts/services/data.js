@@ -3,7 +3,7 @@
 //for webpack
 var angular = require('angular');
 
-angular.module('todoListApp')
+angular.module('parkApp')
 //$q is an anguolar service used to manage request
 .service('dataService', function($http, $q) {
   

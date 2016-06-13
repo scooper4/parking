@@ -7,14 +7,14 @@ webpackJsonp([0],[
 	//for webpack
 	var angular = __webpack_require__(1);
 
-	angular.module('todoListApp', ['chart.js','ngMaterial'])
+	angular.module('parkApp', ['chart.js','ngMaterial'])
 
 
 
 	__webpack_require__(3);
+
+
 	__webpack_require__(4);
-	__webpack_require__(5);
-	__webpack_require__(6);
 
 /***/ },
 /* 1 */,
@@ -26,7 +26,7 @@ webpackJsonp([0],[
 	//for webpack
 	var angular = __webpack_require__(1);
 
-	angular.module('todoListApp')
+	angular.module('parkApp')
 	.controller('mainCtrl', function($scope, $interval, $log, dataService){
 	 
 
@@ -81,55 +81,6 @@ webpackJsonp([0],[
 
 /***/ },
 /* 4 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	// //for webpack
-	// var angular = require('angular');
-
-	// angular.module('todoListApp')
-	// .controller('todoCtrl', function($scope, dataService) {
-	//   $scope.deleteTodo = function(todo, index) {
-	//     $scope.todos.splice(index, 1);
-	//     dataService.deleteTodo(todo);
-	//   };
-	  
-	//   $scope.saveTodos = function() {
-	//     var filteredTodos = $scope.todos.filter(function(todo){
-	//       if(todo.edited) {
-	//         return todo
-	//       };
-	//     })
-	//     dataService.saveTodos(filteredTodos).finally($scope.resetTodoState());
-	//   }; 
-
-	//   $scope.resetTodoState = function(){
-	//     $scope.todos.forEach(function(todo) {
-	//       todo.edited = false;
-	//     });
-	//   };
-	// });
-
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-	// 'use strict';
-	// //for webpack
-	// var angular = require('angular');
-
-	// angular.module('todoListApp')
-	// .directive('todo', function(){
-	//   return {
-	//     templateUrl: 'templates/todo.html',
-	//     replace: true,
-	//     controller: 'todoCtrl'
-	//   }
-	// });
-
-/***/ },
-/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -137,7 +88,7 @@ webpackJsonp([0],[
 	//for webpack
 	var angular = __webpack_require__(1);
 
-	angular.module('todoListApp')
+	angular.module('parkApp')
 	//$q is an anguolar service used to manage request
 	.service('dataService', function($http, $q) {
 	  
