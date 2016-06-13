@@ -28,16 +28,7 @@ webpackJsonp([0],[
 
 	angular.module('todoListApp')
 	.controller('mainCtrl', function($scope, $interval, $log, dataService){
-	  // //interval counter
-	  // $scope.seconds=0;
-
-	  // $scope.counter = function(){
-	  // 	$scope.seconds++;
-	  // 	$log.log($scope.seconds + ' have passed ! ');
-
-	  // }
-
-	 	// $interval($scope.counter, 1000, 10);
+	 
 
 	  //delete a vehicle
 	   $scope.deleteVehicle = function(vehicle, index) {
@@ -70,10 +61,12 @@ webpackJsonp([0],[
 	// add Vehicles to Parking Garage
 	$scope.addVehicle = function() {
 	    var vDate = new Date(); //create a new date object
+	   
 	    var vehicle = {state: "Ma",
 	                      type: "Valet", time:vDate, type:'Regular', plate:"123-ABC"}
 	    $scope.vehicles.unshift(vehicle);
 	    dataService.addVehicle(vehicle); //save to db
+
 	  };  
 
 	// edit vehicles in Parking Garage
@@ -82,67 +75,58 @@ webpackJsonp([0],[
 
 	};
 
-	  dataService.getTodos(function(response){
-	    var todos = response.data.todos;  
-	    $scope.todos =  todos;
-	    });
-
 	  
-	  $scope.addTodo = function() {
-	    $scope.todos.unshift({name: "This is a new todo.",
-	                      completed: false});
-	  };
 	  
 	})
 
 /***/ },
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
-	//for webpack
-	var angular = __webpack_require__(1);
+	// //for webpack
+	// var angular = require('angular');
 
-	angular.module('todoListApp')
-	.controller('todoCtrl', function($scope, dataService) {
-	  $scope.deleteTodo = function(todo, index) {
-	    $scope.todos.splice(index, 1);
-	    dataService.deleteTodo(todo);
-	  };
+	// angular.module('todoListApp')
+	// .controller('todoCtrl', function($scope, dataService) {
+	//   $scope.deleteTodo = function(todo, index) {
+	//     $scope.todos.splice(index, 1);
+	//     dataService.deleteTodo(todo);
+	//   };
 	  
-	  $scope.saveTodos = function() {
-	    var filteredTodos = $scope.todos.filter(function(todo){
-	      if(todo.edited) {
-	        return todo
-	      };
-	    })
-	    dataService.saveTodos(filteredTodos).finally($scope.resetTodoState());
-	  }; 
+	//   $scope.saveTodos = function() {
+	//     var filteredTodos = $scope.todos.filter(function(todo){
+	//       if(todo.edited) {
+	//         return todo
+	//       };
+	//     })
+	//     dataService.saveTodos(filteredTodos).finally($scope.resetTodoState());
+	//   }; 
 
-	  $scope.resetTodoState = function(){
-	    $scope.todos.forEach(function(todo) {
-	      todo.edited = false;
-	    });
-	  };
-	});
+	//   $scope.resetTodoState = function(){
+	//     $scope.todos.forEach(function(todo) {
+	//       todo.edited = false;
+	//     });
+	//   };
+	// });
 
 /***/ },
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
-	//for webpack
-	var angular = __webpack_require__(1);
+	// 'use strict';
+	// //for webpack
+	// var angular = require('angular');
 
-	angular.module('todoListApp')
-	.directive('todo', function(){
-	  return {
-	    templateUrl: 'templates/todo.html',
-	    replace: true,
-	    controller: 'todoCtrl'
-	  }
-	});
+	// angular.module('todoListApp')
+	// .directive('todo', function(){
+	//   return {
+	//     templateUrl: 'templates/todo.html',
+	//     replace: true,
+	//     controller: 'todoCtrl'
+	//   }
+	// });
 
 /***/ },
 /* 6 */
@@ -162,7 +146,7 @@ webpackJsonp([0],[
 	    $http.get('api/vehicles/').then(cb);
 	  }
 
-	  //Save the vehicle todb as soon as it is added
+	  //Save the vehicle to db as soon as it is added
 	  this.addVehicle = function(vehicle){
 	    $http.post('/api/vehicles/', vehicle);
 	  }
@@ -172,40 +156,13 @@ webpackJsonp([0],[
 	    $http.put('/api/vehicles/' + vehicle._id, vehicle);
 	  }
 
-	  this.getTodos = function(cb) {
-	    $http.get('/api/todos/').then(cb);
-	  };
-
+	  // delete Vehicle from the db
 	  this.deleteVehicle = function(vehicle) {
-	    //add http delete request
-	    
 	    $http.delete('/api/vehicles/' + vehicle._id)
 
 	  };
+
 	  
-	  this.deleteTodo = function(todo) {
-	    console.log("I deleted the " + todo.name + " todo!");
-	  };
-	  
-	  this.saveTodos = function(todos) {
-	    var queue= [];
-	    todos.forEach(function(todo){
-	    	var request;
-	    	if(!todo._id) {
-	          request = $http.post('/api/todos', todo);
-	        } else {
-	          request = $http.put('/api/todos/' + todo._id, todo).then(function(result) {
-	            todo = result.data.todo;
-	            return todo;
-	          });
-	        }
-	    	queue.push(request);
-	    });
-	    // itterate over all queues and runs each request
-	    return $q.all(queue).then(function(results){
-	    	console.log("I saved" + todos.length + " todos!")
-	    })
-	  };
 	  
 	});
 

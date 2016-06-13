@@ -3,15 +3,9 @@
 // import express with require method
 var express = require('express');
 
-// import todo model
-var Todo = require('../models/todo');
 
 // import Vehicle model
 var Vehicle = require('../models/vehicle');
-
-
-//import todos from todos json file in mocks
-// var todos = require('../../mock/todos.json');
 
 // express router instance
 var router = express.Router();
@@ -77,59 +71,7 @@ router.delete('/vehicles/:id',function(req,res){
 })
 
 
-//route when visiting /todos route send back through
-// get request a json obejct using router
-router.get('/todos', function(req, res){
-	
-	//find all objects in the todo model
-	Todo.find({}, function(err, todos){
-		if(err){
-			 return res.status(500).json({message: err.message});
-		}else{
-			res.json({todos:todos});
-		}	
-	});
 
-});
-
-
-
-// Post route to create new todo entries
-router.post('/todos',function(req, res){
-	var todo = req.body;
-	//save to mongodb bu creating a Todo
-	Todo.create(todo,function(err,todo){
-		if(err){
-			return res.status(500).json({err: err.message});
-		}
-		//send back json object to db
-		res.json({'todo': todo, message: 'Todo Completed'});
-	})
-	
-});
-
-
-
-//  Put route to update todo existing entries
-router.put('/todos/:id',function(req, res){
-	
-	var id = req.params.id; //get id from url param id key
-	var todo = req.body;
-
-	if(todo && todo._id !== id){
-		return res.status(500).json({err: "Ids dont match!"})
-	}
-	//save to mongodb bu creating a Todo
-	Todo.findByIdAndUpdate(id,todo,{new:true},function(err,todo){
-		if(err){
-			return res.status(500).json({err: err.message});
-		}
-		//send back json object to db
-		res.json({'todo': todo,  message: 'Todo Updated'});
-	})
-	
-});
-// TODO: add delete route to delete entries
 
 //export router to use in app.js
 module.exports = router;

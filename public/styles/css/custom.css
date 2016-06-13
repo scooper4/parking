@@ -1,0 +1,10 @@
+.scroll {
+	height: 500px;   
+	overflow-y : scroll;
+}
+
+.border {
+	border-style: solid ;
+	border: 2px ;
+	border-color: black ;
+}

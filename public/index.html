@@ -8,6 +8,7 @@
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="styles/css/materialize.min.css"  media="screen,projection"/>
+       <link type="text/css" rel="stylesheet" href="styles/css/custom.css"  media="screen,projection"/>
         <!-- Angular Material style sheet -->
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
 
@@ -17,13 +18,13 @@
       <link rel="stylesheet" href="/bower_components/angular-chart.js/dist/angular-chart.css">
     
 </head>
-<body ng-app="todoListApp" ng-controller="mainCtrl">
+<body ng-app="todoListApp"  ng-controller="mainCtrl">
   <ng-include src="'templates/navbar.html'">
   </ng-include>
   
   <h1>Lot Status</h1>
 
-  <div class ="container">
+  <div class ="container" >
   <!-- Entire Table Data -->
     <div class ="row">
     <!-- Graph Data -->
@@ -32,7 +33,7 @@
           chart-data="[vehicles.length,200-vehicles.length]" chart-labels="['parked','Empty Spaces']">
         </canvas> 
       </div>
-      <div class= "col s12 md9">  
+      <div class= "col s12 md9 scroll">  
       <!--   Title Parked Vehicles -->
         <div class ="row">
           <div class ="col s12 md12">
@@ -41,7 +42,7 @@
           </div>  
         </div>  
       <!-- Column Titles  --> 
-        <div class ="row">
+        <div class ="row ">
           <div class ="col s2 md2">
             State
           </div> 
@@ -59,8 +60,8 @@
           </div>   
         </div> 
       <!-- Vehicle Data  --> 
-        <div ng-repeat ="vehicle in vehicles" class ="row">
-          <div class ="col s2 md2">
+        <div ng-repeat ="vehicle in vehicles" class ="row border" >
+          <div class ="col s2 md2 ">
             <label ng-hide ="editing" ng-click="editing = !editing">{{vehicle.state}}</label>
             <input ng-show ="editing" ng-blur ="editing = false; editVehicle(vehicle)" ng-model="vehicle.state"></input>
             
@@ -101,19 +102,6 @@
 
 
   </div>  
-<!--   
-  <div class="list" ng-controller="mainCtrl">
-    
-    
-    <div class="add">
-      <a href="#" ng-click="addTodo()">
-        + Add a New Task</a>
-      </div>
-    <todo></todo>
-   </div> -->
-
-
-  <!-- All of the 3rd party modules including angular -->
 
     
   <script src="/scripts/vendor.bundle.js"></script>

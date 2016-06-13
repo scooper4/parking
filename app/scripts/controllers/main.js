@@ -4,16 +4,7 @@ var angular = require('angular');
 
 angular.module('todoListApp')
 .controller('mainCtrl', function($scope, $interval, $log, dataService){
-  // //interval counter
-  // $scope.seconds=0;
-
-  // $scope.counter = function(){
-  // 	$scope.seconds++;
-  // 	$log.log($scope.seconds + ' have passed ! ');
-
-  // }
-
- 	// $interval($scope.counter, 1000, 10);
+ 
 
   //delete a vehicle
    $scope.deleteVehicle = function(vehicle, index) {
@@ -46,10 +37,12 @@ angular.module('todoListApp')
 // add Vehicles to Parking Garage
 $scope.addVehicle = function() {
     var vDate = new Date(); //create a new date object
+   
     var vehicle = {state: "Ma",
                       type: "Valet", time:vDate, type:'Regular', plate:"123-ABC"}
     $scope.vehicles.unshift(vehicle);
     dataService.addVehicle(vehicle); //save to db
+
   };  
 
 // edit vehicles in Parking Garage
@@ -58,15 +51,6 @@ $scope.editVehicle = function(vehicle){
 
 };
 
-  dataService.getTodos(function(response){
-    var todos = response.data.todos;  
-    $scope.todos =  todos;
-    });
-
   
-  $scope.addTodo = function() {
-    $scope.todos.unshift({name: "This is a new todo.",
-                      completed: false});
-  };
   
 })
