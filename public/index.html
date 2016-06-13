@@ -8,6 +8,8 @@
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="styles/css/materialize.min.css"  media="screen,projection"/>
+        <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
 
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -25,16 +27,17 @@
   <!-- Entire Table Data -->
     <div class ="row">
     <!-- Graph Data -->
-      <div ng-controller="PieCtrl" class= "col s12 md3 ">
+      <div  class= "col s12 md3 ">
         <canvas id="pie" class="chart chart-pie"
-          chart-data="[vehicles.length,200-vehicles.length]" chart-labels="['parked','free']">
+          chart-data="[vehicles.length,200-vehicles.length]" chart-labels="['parked','Empty Spaces']">
         </canvas> 
       </div>
       <div class= "col s12 md9">  
       <!--   Title Parked Vehicles -->
         <div class ="row">
           <div class ="col s12 md12">
-            Parked Vehicles : {{vehicles.length}}
+            Parked Vehicles : {{vehicles.length}} </br>
+            <a href="" ng-click ="addVehicle()"> Park A New Car</a>
           </div>  
         </div>  
       <!-- Column Titles  --> 
@@ -56,21 +59,41 @@
           </div>   
         </div> 
       <!-- Vehicle Data  --> 
-        <div ng-repeat ="vehicle in vehicles"class ="row">
+        <div ng-repeat ="vehicle in vehicles" class ="row">
           <div class ="col s2 md2">
-            {{vehicle.state}}
+            <label ng-hide ="editing" ng-click="editing = !editing">{{vehicle.state}}</label>
+            <input ng-show ="editing" ng-blur ="editing = false; editVehicle(vehicle)" ng-model="vehicle.state"></input>
+            
           </div> 
           <div class ="col s2 md3">
-            {{vehicle.plate}}
+            <label ng-hide ="editing" ng-click="editing = !editing">{{vehicle.plate}}</label>
+            <input ng-show ="editing" ng-blur ="editing = false; editVehicle(vehicle)" ng-model="vehicle.plate"></input>
+           
           </div>  
           <div class ="col s4 md4">
-            {{vehicle.time}}
+            {{vehicle.time | date:'medium'}}
+           
           </div>  
           <div class ="col s2 md2">
-            {{vehicle.type}}
+           <!--  <label ng-hide ="editing" ng-click="editing = !editing">{{vehicle.type}}</label>
+            <input ng-show ="editing" ng-blur ="editing = false" ng-model="vehicle.type"></input> -->
+             
+       
+          
+            <label ng-hide ="editing" ng-click="editing = !editing">{{vehicle.type}}</label>
+             <md-select ng-show ="editing" ng-blur ="editing = false; editVehicle(vehicle)"  ng-model="vehicle.type" md-selected-text="getSelectedText()">
+                <md-optgroup label="items">
+                  <md-option ng-value="item" ng-repeat="item in items">{{item}}</md-option>
+                </md-optgroup>
+              </md-select>
+      
+        
+          
           </div>  
+
           <div class ="col s2 md2">
-            Remove
+            <a href="" ng-click="deleteVehicle(vehicle, $index)">Remove</a>
+            
           </div>   
         </div> 
       </div>  
@@ -78,8 +101,8 @@
 
 
   </div>  
-  
-<!--   <div class="list" ng-controller="mainCtrl">
+<!--   
+  <div class="list" ng-controller="mainCtrl">
     
     
     <div class="add">
@@ -87,8 +110,8 @@
         + Add a New Task</a>
       </div>
     <todo></todo>
-   </div>
- -->
+   </div> -->
+
 
   <!-- All of the 3rd party modules including angular -->
 
@@ -100,10 +123,20 @@
   <script src="/scripts/todo.bundle.js"></script>
 
  <!--  Materialize Javascript -->
+ 
    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="styles/js/materialize.min.js"></script>
-     
+
     
+
+     <!-- Angular Material requires Angular.js Libraries -->
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script> 
     </body>
  
 </body>

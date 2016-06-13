@@ -12,8 +12,25 @@ angular.module('todoListApp')
     $http.get('api/vehicles/').then(cb);
   }
 
+  //Save the vehicle todb as soon as it is added
+  this.addVehicle = function(vehicle){
+    $http.post('/api/vehicles/', vehicle);
+  }
+
+  //update the vehicle in the db
+  this.updateVehicle = function(vehicle){
+    $http.put('/api/vehicles/' + vehicle._id, vehicle);
+  }
+
   this.getTodos = function(cb) {
     $http.get('/api/todos/').then(cb);
+  };
+
+  this.deleteVehicle = function(vehicle) {
+    //add http delete request
+    
+    $http.delete('/api/vehicles/' + vehicle._id)
+
   };
   
   this.deleteTodo = function(todo) {

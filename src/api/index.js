@@ -52,7 +52,7 @@ router.put('/vehicles/:id',function(req,res){
 		return res.status(500).json({err: "Ids dont match!"})
 	}
 	//else find by id and update with new data
-	Vehicle.findByIdAndUpdate(id,vehicle,{new:true},function(err,todo){
+	Vehicle.findByIdAndUpdate(id,vehicle,{new:true},function(err,vehicle){
 		if(err){
 			return res.status(500).json({err: err.message});
 		}
@@ -60,6 +60,21 @@ router.put('/vehicles/:id',function(req,res){
 		res.json({'vehicle': vehicle, message:'Vehicle Updated'})
 	})
 });
+//delete route to destroy vehicle in database
+router.delete('/vehicles/:id',function(req,res){
+	
+	var id = req.params.id;
+	// var vehicle = req.body;
+
+	
+	Vehicle.findByIdAndRemove(id,'select', function(err){
+		if(err){
+			return res.status(500).json({err: err.message});
+		}
+		res.json({'vehicle with':id, message:'Was Deleted'})
+
+	}); 
+})
 
 
 //route when visiting /todos route send back through

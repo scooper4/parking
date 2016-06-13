@@ -7,25 +7,8 @@ webpackJsonp([0],[
 	//for webpack
 	var angular = __webpack_require__(1);
 
-	angular.module('todoListApp', ['chart.js'])
-	.controller("PieCtrl", function ($scope, dataService) {
+	angular.module('todoListApp', ['chart.js','ngMaterial'])
 
-	  //call get vehicles data service to set scope vehicles variable
-	  
-	  // var longer = dataService.getVehicles(function(response){
-	  //    var vehicles = response.data.vehicles;
-	  //   $scope.vehicles = vehicles;
-	  //   console.log("vehicles are" + $scope.vehicles.length)
-	  //   return $scope.vehicles.length
-	    
-	  // }) 		
-	  console.log("please work poop " + $scope.vehicles)
-	  $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-	  $scope.data = [100, 500, 100];
-	  
-
-
-	});
 
 
 	__webpack_require__(3);
@@ -45,28 +28,65 @@ webpackJsonp([0],[
 
 	angular.module('todoListApp')
 	.controller('mainCtrl', function($scope, $interval, $log, dataService){
-	  
-	  $scope.seconds=0;
+	  // //interval counter
+	  // $scope.seconds=0;
 
-	  $scope.counter = function(){
-	  	$scope.seconds++;
-	  	$log.log($scope.seconds + ' have passed ! ');
+	  // $scope.counter = function(){
+	  // 	$scope.seconds++;
+	  // 	$log.log($scope.seconds + ' have passed ! ');
 
-	  }
+	  // }
 
-	 	$interval($scope.counter, 1000, 10);
-	  
+	 	// $interval($scope.counter, 1000, 10);
+
+	  //delete a vehicle
+	   $scope.deleteVehicle = function(vehicle, index) {
+	    if(confirm('Are you sure you want to delete this Vehicle?')){
+	      $scope.vehicles.splice(index, 1);
+	      dataService.deleteVehicle(vehicle);
+	   }
+	  };
+
+
 	//call get vehicles data service to set scope vehicles variable
+	  $scope.vehicles;
 	  dataService.getVehicles(function(response){
 	    var vehicles = response.data.vehicles;
 	    $scope.vehicles = vehicles;
 	    
 	  })
+	//Select Vehicle Types from drop down with angular-materialize-css
+	  $scope.items = ['Valet','Term','Regular'];
+	      $scope.selectedItem;
+	      $scope.getSelectedText = function() {
+	        if ($scope.selectedItem !== undefined) {
+	          return "You have selected: Item " + $scope.selectedItem;
+	        } 
+	        else {
+	          return "Type";
+	        }
+	    }
+
+	// add Vehicles to Parking Garage
+	$scope.addVehicle = function() {
+	    var vDate = new Date(); //create a new date object
+	    var vehicle = {state: "Ma",
+	                      type: "Valet", time:vDate, type:'Regular', plate:"123-ABC"}
+	    $scope.vehicles.unshift(vehicle);
+	    dataService.addVehicle(vehicle); //save to db
+	  };  
+
+	// edit vehicles in Parking Garage
+	$scope.editVehicle = function(vehicle){
+	  dataService.updateVehicle(vehicle); // update the vehicle
+
+	};
 
 	  dataService.getTodos(function(response){
 	    var todos = response.data.todos;  
 	    $scope.todos =  todos;
 	    });
+
 	  
 	  $scope.addTodo = function() {
 	    $scope.todos.unshift({name: "This is a new todo.",
@@ -142,8 +162,25 @@ webpackJsonp([0],[
 	    $http.get('api/vehicles/').then(cb);
 	  }
 
+	  //Save the vehicle todb as soon as it is added
+	  this.addVehicle = function(vehicle){
+	    $http.post('/api/vehicles/', vehicle);
+	  }
+
+	  //update the vehicle in the db
+	  this.updateVehicle = function(vehicle){
+	    $http.put('/api/vehicles/' + vehicle._id, vehicle);
+	  }
+
 	  this.getTodos = function(cb) {
 	    $http.get('/api/todos/').then(cb);
+	  };
+
+	  this.deleteVehicle = function(vehicle) {
+	    //add http delete request
+	    
+	    $http.delete('/api/vehicles/' + vehicle._id)
+
 	  };
 	  
 	  this.deleteTodo = function(todo) {

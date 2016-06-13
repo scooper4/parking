@@ -3,7 +3,7 @@
 //for webpack
 var angular = require('angular');
 
-angular.module('todoListApp', ['chart.js'])
+angular.module('todoListApp', ['chart.js','ngMaterial'])
 
 
 
