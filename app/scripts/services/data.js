@@ -10,11 +10,14 @@ angular.module('parkApp')
 //service to get the vehicle data from api response body
   this.getVehicles = function(cb){
     $http.get('api/vehicles/').then(cb);
+   
   }
 
   //Save the vehicle to db as soon as it is added
   this.addVehicle = function(vehicle){
-    $http.post('/api/vehicles/', vehicle);
+
+   $http.post('/api/vehicles/', vehicle);
+   
   }
 
   //update the vehicle in the db
@@ -24,7 +27,7 @@ angular.module('parkApp')
 
   // delete Vehicle from the db
   this.deleteVehicle = function(vehicle) {
-    $http.delete('/api/vehicles/' + vehicle._id)
+    $http.delete('/api/vehicles/' + vehicle._id);
 
   };
 

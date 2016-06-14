@@ -64,9 +64,16 @@ webpackJsonp([0],[
 	   
 	    var vehicle = {state: "Ma",
 	                      type: "Valet", time:vDate, type:'Regular', plate:"123-ABC"}
-	    $scope.vehicles.unshift(vehicle);
+	    
 	    dataService.addVehicle(vehicle); //save to db
-
+	    $scope.vehicles.push(vehicle);
+	    //send a request back to the server to get all new vehicles including this one with the updated _.id
+	    // doesnt seem efficent but it works for now...
+	     dataService.getVehicles(function(response){
+	      var vehicles = response.data.vehicles;
+	      $scope.vehicles = vehicles;
+	      
+	    });
 	  };  
 
 	// edit vehicles in Parking Garage
@@ -95,11 +102,14 @@ webpackJsonp([0],[
 	//service to get the vehicle data from api response body
 	  this.getVehicles = function(cb){
 	    $http.get('api/vehicles/').then(cb);
+	   
 	  }
 
 	  //Save the vehicle to db as soon as it is added
 	  this.addVehicle = function(vehicle){
-	    $http.post('/api/vehicles/', vehicle);
+
+	   $http.post('/api/vehicles/', vehicle);
+	   
 	  }
 
 	  //update the vehicle in the db
@@ -109,7 +119,7 @@ webpackJsonp([0],[
 
 	  // delete Vehicle from the db
 	  this.deleteVehicle = function(vehicle) {
-	    $http.delete('/api/vehicles/' + vehicle._id)
+	    $http.delete('/api/vehicles/' + vehicle._id);
 
 	  };
 

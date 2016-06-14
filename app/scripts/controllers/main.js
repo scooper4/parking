@@ -40,9 +40,16 @@ $scope.addVehicle = function() {
    
     var vehicle = {state: "Ma",
                       type: "Valet", time:vDate, type:'Regular', plate:"123-ABC"}
-    $scope.vehicles.unshift(vehicle);
+    
     dataService.addVehicle(vehicle); //save to db
-
+    $scope.vehicles.push(vehicle);
+    //send a request back to the server to get all new vehicles including this one with the updated _.id
+    // doesnt seem efficent but it works for now...
+     dataService.getVehicles(function(response){
+      var vehicles = response.data.vehicles;
+      $scope.vehicles = vehicles;
+      
+    });
   };  
 
 // edit vehicles in Parking Garage
