@@ -67,7 +67,7 @@
             
           </div> 
           <div class ="col s2 md3">
-            <label ng-hide ="editing" ng-click="editing = !editing">{{vehicle.plate}} + {{$index}}</label>
+            <label ng-hide ="editing" ng-click="editing = !editing">{{vehicle.plate}} </label>
             <input ng-show ="editing" ng-blur ="editing = false; editVehicle(vehicle)" ng-model="vehicle.plate"></input>
            
           </div>  
