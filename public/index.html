@@ -67,7 +67,7 @@
             
           </div> 
           <div class ="col s2 md3">
-            <label ng-hide ="editing" ng-click="editing = !editing">{{vehicle.plate}}</label>
+            <label ng-hide ="editing" ng-click="editing = !editing">{{vehicle.plate}} + {{$index}}</label>
             <input ng-show ="editing" ng-blur ="editing = false; editVehicle(vehicle)" ng-model="vehicle.plate"></input>
            
           </div>  
@@ -93,7 +93,7 @@
           </div>  
 
           <div class ="col s2 md2">
-            <a href="" ng-click="deleteVehicle(vehicle, $index)">Remove</a>
+            <a href="" ng-click="deleteVehicle(vehicle, vehicles.length - $index - 1)">Remove</a>
             
           </div>   
         </div> 
